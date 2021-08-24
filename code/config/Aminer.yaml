@@ -1,0 +1,74 @@
+exp_setting:
+  exp_name: 'Aminer'                         # Experiment title, log/checkpoint files will be named after this
+  checkpoint_dir: './checkpoint/'         # Folder for model checkpoints
+  log_dir: './log/'                       # Folder for training logs
+  data_root: '../datasets/'
+  seed: 9
+  n_nodes: 28722
+  input_dim: 256
+  mp_1: 'PAP'
+  mp_2: 'PRP'
+
+
+model:
+  vae:
+    encoder: [['fc', 256, '', 'LeakyReLU', 0.5],
+              ['fc', 128, '', 'LeakyReLU', 0.5],
+              ['fc', 128, 'bn', 'LeakyReLU', 0.5],
+              ['fc', 64, '', 'LeakyReLU', 0.5]
+             ]
+    decoder: [['fc', 128, 'bn', 'LeakyReLU', 0.5, True],
+              ['fc', 256, '', 'LeakyReLU', 0.5, False]
+             ]
+    lr: 0.005
+    betas: [0.5, 0.999]
+
+  D_mp:
+    dnn: [['fc', 32, 'bn', 'LeakyReLU', 0.5],
+          ['fc', 2, '', 'LeakyReLU', 0.5]
+         ]
+    lr: 0.005
+    betas: [0.5, 0.999]
+
+  D:
+    dnn: [['fc', 128, '', 'LeakyReLU', 0.5],
+          ['fc', [1,2], '', 'LeakyReLU', 0.5]
+         ]
+    lr: 0.005
+    betas: [0.5, 0.999]
+
+
+trainer:
+  total_step: 80000
+  batch_size: 32
+
+  lambda:
+    reconstruct:
+      init:  200
+      final: 1
+      step:  10000
+    kl:
+      init:  0.0001
+      final: 0.0001
+      step:  1
+    adv_mp_clf:
+      init:  0
+      final: 1
+      step:  5000
+    gp:
+      init: 1000
+      final: 1000
+      step: 1
+    d_adv:
+      init: 0
+      final: 0.001
+      step: 100
+    d_clf:
+      init: 0
+      final: 0.001
+      step: 100
+
+  verbose_step: 200
+  save_log: True
+  save_checkpoint: True
+  save_best_only: True

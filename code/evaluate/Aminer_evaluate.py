@@ -13,7 +13,7 @@ class Aminer_evaluation():
 	def __init__(self):
 		# Load Paper Label
 		self.paper_label = {}
-		data = pickle.load(open('../datasets/Aminer/paper_label.p'), 'rb')
+		data = pickle.load(open('../datasets/Aminer/paper_label.p', 'rb'))
 		for item in range(len(data)):
 			 (id, label) = data[item]
 			 self.paper_label[id] = label

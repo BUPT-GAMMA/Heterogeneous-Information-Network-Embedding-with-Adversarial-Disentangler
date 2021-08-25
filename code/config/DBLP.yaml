@@ -50,8 +50,8 @@ trainer:
       final: 1
       step:  10000
     kl:
-      init:  0.015
-      final: 0.015
+      init:  0.0001
+      final: 0.0001
       step:  1
     adv_mp_clf:
       init:  0

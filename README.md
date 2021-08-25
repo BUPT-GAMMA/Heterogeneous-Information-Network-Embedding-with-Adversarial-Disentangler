@@ -24,10 +24,10 @@ Please refer to the **yaml file** of the corresponding dataset.
   - lambda (loss weight settings)
     - reconstruct: loss weight for reconstructing input node embedding
     - kl: loss weight for Kullback-Leibler Divergence in the meta-path disentangler
-    - adv_mp_clf: loss weight for adversarial classification of meta-path discriminator
+    - adv_mp_clf: loss weight for adversarial classification of the meta-path discriminator
     - gp: loss weight for grad penalty
-    - d_adv: loss weight for real/fake classifier
-    - d_clf: loss weight for semantic classifier
+    - d_adv: loss weight for the real/fake classifier
+    - d_clf: loss weight for the semantic classifier
 
 
 
